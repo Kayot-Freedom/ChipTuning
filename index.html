@@ -1,1 +1,375 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Архив прошивок ГАЗ, УАЗ и ПО для чип-тюнинга</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0d1117;
+    color: #c9d1d9;
+    line-height: 1.6;
+  }
+
+  header {
+    background: linear-gradient(135deg, #161b22 0%, #1f2937 100%);
+    border-bottom: 2px solid #f0883e;
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  header h1 {
+    color: #f0883e;
+    font-size: 2em;
+    margin-bottom: 8px;
+  }
+
+  header p {
+    color: #8b949e;
+    font-size: 0.95em;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 25px 20px;
+  }
+
+  /* Поиск и фильтры */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 25px;
+  }
+
+  .controls input,
+  .controls select {
+    padding: 10px 14px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    color: #c9d1d9;
+    font-size: 0.95em;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .controls input:focus,
+  .controls select:focus {
+    border-color: #f0883e;
+  }
+
+  .controls input { flex: 1; min-width: 220px; }
+
+  /* Категории */
+  .category {
+    margin-bottom: 35px;
+  }
+
+  .category h2 {
+    color: #f0883e;
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #30363d;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .category h2::before {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 22px;
+    background: #f0883e;
+    border-radius: 2px;
+  }
+
+  /* Карточки */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+  }
+
+  .card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 18px;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: #f0883e;
+    box-shadow: 0 6px 20px rgba(240, 136, 62, 0.15);
+  }
+
+  .card h3 {
+    color: #58a6ff;
+    font-size: 1.05em;
+    margin-bottom: 6px;
+  }
+
+  .card .meta {
+    font-size: 0.82em;
+    color: #8b949e;
+    margin-bottom: 10px;
+  }
+
+  .card .desc {
+    font-size: 0.88em;
+    color: #a0a8b0;
+    margin-bottom: 14px;
+    min-height: 40px;
+  }
+
+  .card .btn {
+    display: inline-block;
+    padding: 7px 16px;
+    background: transparent;
+    border: 1px solid #f0883e;
+    color: #f0883e;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .card .btn:hover {
+    background: #f0883e;
+    color: #0d1117;
+  }
+
+  /* Заглушка для скачивания */
+  .note {
+    background: #1c2128;
+    border-left: 4px solid #f0883e;
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-size: 0.88em;
+    color: #8b949e;
+    margin-bottom: 25px;
+  }
+
+  .note strong { color: #f0883e; }
+
+  footer {
+    text-align: center;
+    padding: 25px 20px;
+    border-top: 1px solid #30363d;
+    color: #6e7681;
+    font-size: 0.85em;
+    margin-top: 30px;
+  }
+
+  .empty {
+    text-align: center;
+    color: #6e7681;
+    padding: 30px;
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.4em; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Архив прошивок и ПО для чип-тюнинга</h1>
+  <p>Прошивки ГАЗ • УАЗ • Chip Tuning Pro • WinOLS • ChipExplorer</p>
+</header>
+
+<div class="container">
+
+  <div class="note">
+    <strong>Внимание:</strong> данный ресурс является демонстрационным шаблоном.
+    Все файлы и ссылки приведены в качестве примера структуры каталога.
+    Перед использованием любого ПО убедитесь в наличии лицензии и соблюдении законодательства.
+  </div>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="🔍 Поиск по названию, модели, версии...">
+    <select id="filter">
+      <option value="all">Все категории</option>
+      <option value="gaz">ГАЗ</option>
+      <option value="uaz">УАЗ</option>
+      <option value="software">Программы</option>
+    </select>
+  </div>
+
+  <!-- ГАЗ -->
+  <section class="category" data-cat="gaz">
+    <h2>Прошивки ГАЗ</h2>
+    <div class="grid">
+
+      <div class="card" data-title="ГАЗель Бизнес Микас 11 E2">
+        <h3>ГАЗель Бизнес — Микас 11</h3>
+        <div class="meta">ЭБУ: Микас 11 · Версия: E2 · 2013–2016</div>
+        <div class="desc">Заводская и тюнингованная прошивка под нормы Евро-2. Улучшенный отклик, экономия топлива.</div>
+        <a href="#" class="btn">Скачать</a>
+      </div>
+
+      <div class="card" data-title="ГАЗель Next Евро-4">
+        <h3>ГАЗель Next — Евро-4</h3>
+        <div class="meta">ЭБУ: Микас 12 / М86 · Версия: E4</div>
+        <div class="desc">Стоковые и модифицированные калибровки для двигателей УМЗ Evotech и Cummins.</div>
+        <a href="#" class="btn">Скачать</a>
+      </div>
+
+      <div class="card" data-title="Соболь Микас 7.1">
+        <h3>Соболь — Микас 7.1</h3>
+        <div class="meta">ЭБУ: Микас 7.1 · Версия: E2/E3</div>
+        <div class="desc">Архив калибровок для ЗМЗ-40522 и ЗМЗ-409. Базовые и тюнингованные варианты.</div>
+        <a href="#" class="btn">Скачать</a>
+      </div>
+
+      <div class="card" data-title="Волга Сайбер Микас 11">
+        <h3>Волга Сайбер — Микас 11</h3>
+        <div class="meta">ЭБУ: Микас 11 · Версия: E3</div>
+        <div class="desc">Прошивки для Chrysler-совместимых двигателей 2.0/2.4 л.</div>
+        <a href="#" class="btn">Скачать</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- УАЗ -->
+  <section class="category" data-cat="uaz">
+    <h2>Прошивки УАЗ</h2>
+    <div class="grid">
+
+      <div class="card" data-title="УАЗ Патриот Микас 11 E3">
+        <h3>УАЗ Патриот — Микас 11</h3>
+        <div class="meta">ЭБУ: Микас 11 · Версия: E3 · 2012–2016</div>
+        <div class="desc">Калибровки под ЗМЗ-40905. Варианты под Евро-3 с отключением датчиков.</div>
+        <a href="#" class="btn">Скачать</a>
+      </div>
+
+      <div class="card" data-title="УАЗ Патриот М86 E4">
+        <h3>УАЗ Патриот — М86</h3>
+        <div class="meta">ЭБУ: М86 · Версия: E4/E5 · 2017+</div>
+        <div class="desc">Прошивки для ЭБУ М86 (ЭлАРА). Сток, тюнинг, отключение экологии.</div>
+        <a href="#" class="btn">Скачать</a>
+      </div>
+
+      <div class="card" data-title="УАЗ Хантер Микас 7.2">
+        <h3>УАЗ Хантер — Микас 7.2</h3>
+        <div class="meta">ЭБУ: Микас 7.2 · Версия: E2</div>
+        <div class="desc">Архив прошивок под ЗМЗ-409.10/409.11. Базовые и адаптированные версии.</div>
+        <a href="#" class="btn">Скачать</a>
+      </div>
+
+      <div class="card" data-title="УАЗ Профи Евро-5">
+        <h3>УАЗ Профи — Евро-5</h3>
+        <div class="meta">ЭБУ: М86 · Версия: E5</div>
+        <div class="desc">Свежие калибровки для коммерческих моделей УАЗ с двигателем Evotech.</div>
+        <a href="#" class="btn">Скачать</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Программы -->
+  <section class="category" data-cat="software">
+    <h2>Программное обеспечение</h2>
+    <div class="grid">
+
+      <div class="card" data-title="Chip Tuning Pro">
+        <h3>Chip Tuning Pro</h3>
+        <div class="meta">Редактор калибровок · Windows</div>
+        <div class="desc">Популярный редактор прошивок для отечественных ЭБУ. Поддержка Микас, М86, Январь.</div>
+        <a href="#" class="btn">Скачать</a>
+      </div>
+
+      <div class="card" data-title="WinOLS">
+        <h3>WinOLS</h3>
+        <div class="meta">Профессиональный редактор · Windows</div>
+        <div class="desc">Мощный инструмент для работы с бинарными файлами прошивок. Поиск и редактирование карт.</div>
+        <a href="#" class="btn">Скачать</a>
+      </div>
+
+      <div class="card" data-title="ChipExplorer">
+        <h3>ChipExplorer</h3>
+        <div class="meta">Редактор прошивок · Windows</div>
+        <div class="desc">Редактор калибровок с поддержкой множества ЭБУ. Удобный интерфейс и база описаний.</div>
+        <a href="#" class="btn">Скачать</a>
+      </div>
+
+      <div class="card" data-title="CombiLoader">
+        <h3>CombiLoader</h3>
+        <div class="meta">Загрузчик прошивок · Windows</div>
+        <div class="desc">Утилита для чтения/записи прошивок через диагностические адаптеры.</div>
+        <a href="#" class="btn">Скачать</a>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="empty" id="empty">Ничего не найдено. Попробуйте изменить запрос.</div>
+
+</div>
+
+<footer>
+  © 2024 Архив прошивок и ПО для чип-тюнинга · Демонстрационный шаблон
+</footer>
+
+<script>
+  const searchInput = document.getElementById('search');
+  const filterSelect = document.getElementById('filter');
+  const categories = document.querySelectorAll('.category');
+  const emptyMsg = document.getElementById('empty');
+
+  function applyFilters() {
+    const query = searchInput.value.toLowerCase().trim();
+    const filter = filterSelect.value;
+    let visibleCount = 0;
+
+    categories.forEach(cat => {
+      const catType = cat.dataset.cat;
+      const cards = cat.querySelectorAll('.card');
+      let catVisible = 0;
+
+      // Если категория не совпадает с фильтром
+      if (filter !== 'all' && filter !== catType) {
+        cat.style.display = 'none';
+        return;
+      }
+
+      cards.forEach(card => {
+        const title = (card.dataset.title + ' ' + card.textContent).toLowerCase();
+        const match = title.includes(query);
+        card.style.display = match ? '' : 'none';
+        if (match) { catVisible++; visibleCount++; }
+      });
+
+      cat.style.display = catVisible > 0 ? '' : 'none';
+    });
+
+    emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+  filterSelect.addEventListener('change', applyFilters);
+
+  // Заглушка для кнопок скачивания
+  document.querySelectorAll('.card .btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      alert('Демонстрационный шаблон: ссылка на файл не подключена.\nВ рабочей версии здесь будет прямая ссылка на скачивание.');
+    });
+  });
+</script>
+
+</body>
+</html>
